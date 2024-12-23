@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CandyStoreApp.Models.TopSoldProductByCategory>
+
+@{
+    ViewData["Title"] = "Топ продукти року";
+}
+
+<h1 class="display-4 text-center mb-3">Топ продукти року</h1>
+
+<form method="get">
+    <select id="year" name="year" class="form-control">
+        <option value="">Оберіть рік</option>
+        @for (var i = DateTime.Now.Year; i >= DateTime.Now.Year - 3; i--)
+        {
+            <option value="@i">@i</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Шукати</button>
+</form>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-info">
+        <tr>
+            <th>Категорія</th>
+            <th>Продукт</th>
+            <th>Загальна сума продажів</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.TotalAmount</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">Дані відсутні для цього року.</td>
+            </tr>
+        }
+    </tbody>
+</table>

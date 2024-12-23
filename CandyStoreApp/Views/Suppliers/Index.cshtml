@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Постачальники";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Постачальники"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати запис</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <td>
+                <input type="text" class="form-control" name="searchSupplierName" placeholder="Назва постачальника" value="@ViewData["SearchSupplierName"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchContactPerson" placeholder="Контактна особа" value="@ViewData["SearchContactPerson"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchPhoneNumber" placeholder="Номер телефону" value="@ViewData["SearchPhoneNumber"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchSupplierAddress" placeholder="Адреса постачальника" value="@ViewData["SearchSupplierAddress"]" />
+            </td>
+            <td class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Шукати</button>
+                <a href="@Url.Action("Index", new { searchSupplierName = (string)null, searchContactPerson = (string)null, searchPhoneNumber = (string)null, searchSupplierAddress = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn btn-secondary mx-1">Очистити</a>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "supplier_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchSupplierName = ViewData["SearchSupplierName"], searchContactPerson = ViewData["SearchContactPerson"], searchPhoneNumber = ViewData["SearchPhoneNumber"], searchSupplierAddress = ViewData["SearchSupplierAddress"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Назва постачальника
+                        @if (ViewData["sortColumn"]?.ToString() == "supplier_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "contact_person", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchContactPerson = ViewData["SearchContactPerson"], searchPhoneNumber = ViewData["SearchPhoneNumber"], searchSupplierAddress = ViewData["SearchSupplierAddress"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Контактна особа
+                        @if (ViewData["sortColumn"]?.ToString() == "contact_person")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "phone_number", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchSupplierName = ViewData["SearchSupplierName"], searchContactPerson = ViewData["SearchContactPerson"], searchPhoneNumber = ViewData["SearchPhoneNumber"], searchSupplierAddress = ViewData["SearchSupplierAddress"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Номер телефону
+                        @if (ViewData["sortColumn"]?.ToString() == "phone_number")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "supplier_address", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchSupplierName = ViewData["SearchSupplierName"], searchContactPerson = ViewData["SearchContactPerson"], searchPhoneNumber = ViewData["SearchPhoneNumber"], searchSupplierAddress = ViewData["SearchSupplierAddress"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Адреса постачальника
+                        @if (ViewData["sortColumn"]?.ToString() == "supplier_address")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.SupplierName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ContactPerson)</td>
+                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.SupplierAddress)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdSupplier" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdSupplier" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CandyStoreApp.Models.ProductSalesByRating>
+
+@{
+    ViewData["Title"] = "Обсяг продажів за рейтингом";
+}
+<h1 class="display-4 text-center mb-3">Обсяг продажів за рейтингом</h1>
+
+<form method="get">
+    <label for="rating">Оберіть рейтинг:</label>
+    <input type="number" id="rating" name="rating" class="form-control" min="1" max="5" placeholder="Введіть рейтинг" value="@ViewData["rating"]" />
+    <button type="submit" class="btn btn-primary mt-2">Шукати</button>
+</form>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-info">
+        <tr>
+            <th>Рейтинг</th>
+            <th>Продукт</th>
+            <th>Загальна кількість продажів</th>
+            <th>Загальна сума</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ChooseRating</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.TotalSold</td>
+                    <td>@item.TotalAmount</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Дані відсутні для обраного рейтингу!</td>
+            </tr>
+        }
+    </tbody>
+</table>

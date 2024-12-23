@@ -1,0 +1,122 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Review>
+
+@{
+    ViewData["Title"] = "Відгуки";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Відгуки"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати новий запис</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <td>
+                <input type="text" class="form-control" name="searchRating" placeholder="Рейтинг" value="@ViewData["SearchRating"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchReviewText" placeholder="Текст відгуку" value="@ViewData["SearchReviewText"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchReviewDate" placeholder="Дата відгуку" value="@ViewData["SearchReviewDate"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchClient" placeholder="Клієнт" value="@ViewData["SearchClient"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchProduct" placeholder="Продукт" value="@ViewData["SearchProduct"]" />
+            </td>
+            <td class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Шукати</button>
+                <a href="@Url.Action("Index", new { searchRating = (string)null, searchReviewText = (string)null, searchReviewDate = (string)null, searchClient = (string)null, searchProduct = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn mt-2 btn-secondary mx-1">Очистити</a>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "rating", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchRating = ViewData["SearchRating"], searchReviewText = ViewData["SearchReviewText"], searchReviewDate = ViewData["SearchReviewDate"], searchClient = ViewData["SearchClient"], searchProduct = ViewData["SearchProduct"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Рейтинг
+                        @if (ViewData["sortColumn"]?.ToString() == "rating")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "review_text", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchRating = ViewData["SearchRating"], searchReviewText = ViewData["SearchReviewText"], searchReviewDate = ViewData["SearchReviewDate"], searchClient = ViewData["SearchClient"], searchProduct = ViewData["SearchProduct"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Текст відгуку
+                        @if (ViewData["sortColumn"]?.ToString() == "review_text")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "review_date", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchRating = ViewData["SearchRating"], searchReviewText = ViewData["SearchReviewText"], searchReviewDate = ViewData["SearchReviewDate"], searchClient = ViewData["SearchClient"], searchProduct = ViewData["SearchProduct"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Дата відгуку
+                        @if (ViewData["sortColumn"]?.ToString() == "review_date")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "last_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchRating = ViewData["SearchRating"], searchReviewText = ViewData["SearchReviewText"], searchReviewDate = ViewData["SearchReviewDate"], searchClient = ViewData["SearchClient"], searchProduct = ViewData["SearchProduct"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Клієнт
+                        @if (ViewData["sortColumn"]?.ToString() == "last_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "product_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchRating = ViewData["SearchRating"], searchReviewText = ViewData["SearchReviewText"], searchReviewDate = ViewData["SearchReviewDate"], searchClient = ViewData["SearchClient"], searchProduct = ViewData["SearchProduct"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Продукт
+                        @if (ViewData["sortColumn"]?.ToString() == "product_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Rating)</td>
+                <td>@Html.DisplayFor(modelItem => item.ReviewText)</td>
+                <td>@Html.DisplayFor(modelItem => item.ReviewDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdClientNavigation.LastName) @Html.DisplayFor(modelItem => item.IdClientNavigation.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdProductNavigation.ProductName)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdReview" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdReview" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

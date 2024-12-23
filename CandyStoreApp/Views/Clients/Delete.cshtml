@@ -1,0 +1,55 @@
+﻿@model CandyStoreApp.Models.Client
+
+@{
+    ViewData["Title"] = "Видалити клієнта";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-danger fw-bold">Видалити клієнта</h1>
+        <p class="text-muted fs-5">
+            Ви впевнені, що хочете видалити цього клієнта? <br />
+            <span class="fst-italic">Цю дію не можна скасувати.</span>
+        </p>
+    </div>
+
+    <div class="card shadow-lg p-4 col-md-6">
+        <h4 class="text-muted text-center mb-4">Деталі клієнта</h4>
+        <hr class="mb-4" />
+        <dl class="row">
+            <dt class="col-sm-6 fw-semibold">Ім'я:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.FirstName)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Прізвище:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.LastName)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Електронна пошта:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Номер телефону:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Адреса:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.AddressClient)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Місто:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.City)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Поштовий індекс:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.PostalCode)</dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <form asp-action="Delete" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="IdClient" />
+                <button type="submit" class="btn btn-danger px-4 py-2 me-2">
+                    <i class="bi bi-trash-fill"></i> Підтвердити видалення
+                </button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary px-4 py-2">
+                <i class="bi bi-arrow-left-circle"></i> Повернутися
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model CandyStoreApp.Models.Review
+
+@{
+    ViewData["Title"] = "Створення нового відгуку";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Створення нового відгуку</h1>
+        <p class="text-muted">Будь ласка, заповніть форму для створення нового відгуку.</p>
+        <hr />
+    </div>
+
+    <div class="col-md-6 shadow-lg p-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group">
+                <label asp-for="IdClient" class="control-label font-weight-bold">Клієнт</label>
+                <select asp-for="IdClient" class="form-select" asp-items="ViewBag.IdClient"></select>
+                <span asp-validation-for="IdClient" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdProduct" class="control-label font-weight-bold">Продукт</label>
+                <select asp-for="IdProduct" class="form-select" asp-items="ViewBag.IdProduct"></select>
+                <span asp-validation-for="IdProduct" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label font-weight-bold">Оцінка</label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ReviewText" class="control-label font-weight-bold">Текст відгуку</label>
+                <input asp-for="ReviewText" class="form-control" />
+                <span asp-validation-for="ReviewText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ReviewDate" class="control-label font-weight-bold">Дата відгуку</label>
+                <input asp-for="ReviewDate" class="form-control" />
+                <span asp-validation-for="ReviewDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center my-4">
+                <button type="submit" class="btn btn-primary px-4 py-2">Створити</button>
+                <a asp-action="Index" class="btn btn-secondary px-4 py-2 ml-2">Повернутися до списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

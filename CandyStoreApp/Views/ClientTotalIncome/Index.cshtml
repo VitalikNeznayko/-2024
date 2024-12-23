@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CandyStoreApp.Models.ClientTotalIncome>
+
+@{
+    ViewData["Title"] = "Загальний дохід від клієнтів";
+}
+
+<h1 class="display-4 text-center mb-3">Загальний дохід від клієнтівв</h1>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-info">
+        <tr>
+            <th>Прізвище</th>
+            <th>Ім'я</th>
+            <th>Загальний дохід</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.LastName</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.TotalIncome</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">Дані не знайдено.</td>
+            </tr>
+        }
+    </tbody>
+</table>

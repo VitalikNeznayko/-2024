@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CandyStoreApp.Models.DetailedRevenueByDateRange>
+
+@{
+    ViewData["Title"] = "Дохід за певний діапазон часу";
+}
+
+<h1 class="display-4 text-center mb-3">Дохід за певний діапазон часу</h1>
+
+<form method="get">
+    <div class="form-group">
+        <label for="startDate">Початкова дата:</label>
+        <input type="date" id="startDate" name="startDate" class="form-control" value="@ViewData["startDate"]" required />
+    </div>
+    <div class="form-group">
+        <label for="endDate">Кінцева дата:</label>
+        <input type="date" id="endDate" name="endDate" class="form-control" value="@ViewData["endDate"]" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Шукати</button>
+</form>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-info">
+        <tr>
+            <th>Категорія</th>
+            <th>Загальний дохід</th>
+            <th>Кількість замовлень</th>
+            <th>Середня вартість замовлення</th>
+            <th>Дохід за категорією</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.TotalRevenue</td>
+                    <td>@item.TotalOrders</td>
+                    <td>@item.AverageOrderValue</td>
+                    <td>@item.RevenueByCategory</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">Дані не знайдено для вказаного діапазону дат.</td>
+            </tr>
+        }
+    </tbody>
+</table>

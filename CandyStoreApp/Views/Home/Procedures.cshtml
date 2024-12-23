@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Процедури";
+}
+
+<div class="smallBox">
+    <h1 class="display-4 text-center mb-3">Процедури</h1>
+    <h3 class="display-6 text-dark">Статистика</h3>
+    <div class="d-flex flex-wrap mt-3">
+        <a href="@Url.Action("Index", "ProductSalesByRating")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Обсяг продажів за рейтингом</a>
+        <a href="@Url.Action("Index", "CategorySalesByRating")" class="btn btn-info btn-large m-1 ml-5 px-4 py-2 text-white">Обсяг продажів за категоріями по рейтингу</a>
+        <a href="@Url.Action("Index", "TopSoldProductByCategory")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Топ продукти року</a>
+        <a href="@Url.Action("Index", "DetailedRevenueByDateRange")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Дохід за певний діапазон часу</a>
+    </div>
+    <h3 class="display-6 text-dark">Деталі</h3>
+    <div class="d-flex flex-wrap mt-3">
+        <a href="@Url.Action("Index", "ClientTotalIncome")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Загальний дохід від клієнтів</a>
+        <a href="@Url.Action("Index", "OrderWithHighestAverageCheck")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Топ 5 замовлень з найвищим середнім чеком</a>
+    </div>
+
+</div>

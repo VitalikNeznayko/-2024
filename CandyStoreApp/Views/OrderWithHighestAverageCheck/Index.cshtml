@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CandyStoreApp.Models.OrderWithHighestAverageCheck>
+
+@{
+    ViewData["Title"] = "Замовлення з найвищим середнім чеком";
+}
+
+<h1 class="display-4 text-center mb-3">Топ 5 замовлень з найвищим середнім чеком</h1>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-info">
+        <tr>
+            <th>ID Замовлення</th>
+            <th>Клієнт</th>
+            <th>Середній чек</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.IdOrder</td>
+                    <td>@item.ClientName</td>
+                    <td>@item.AverageCheck.ToString()</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">Дані відсутні.</td>
+            </tr>
+        }
+    </tbody>
+</table>

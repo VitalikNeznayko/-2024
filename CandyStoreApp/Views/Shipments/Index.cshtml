@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Shipment>
+
+@{
+    ViewData["Title"] = "Відправлення";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Відправлення"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати запис</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <th>
+                <input type="text" class="form-control" name="searchShipmentDate" placeholder="Дата відправлення" value="@ViewData["SearchShipmentDate"]" />
+            </th>
+            <th>
+                <input type="text" class="form-control" name="searchShipmentMethod" placeholder="Метод відправлення" value="@ViewData["SearchShipmentMethod"]" />
+            </th>
+            <th>
+                <input type="text" class="form-control" name="searchTrackingNumber" placeholder="Номер відстеження" value="@ViewData["SearchTrackingNumber"]" />
+            </th>
+            <th>
+                <input type="text" class="form-control" name="searchOrderId" placeholder="Замовленння" value="@ViewData["SearchOrderId"]" />
+            </th>
+            <th class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Пошук</button>
+                <a href="@Url.Action("Index", new { searchShipmentDate = (string)null, searchShipmentMethod = (string)null, searchTrackingNumber = (string)null, searchOrderId = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn btn-secondary mx-1">Очистити</a>
+            </th>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "shipment_date", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchShipmentDate = ViewData["SearchShipmentDate"], searchShipmentMethod = ViewData["SearchShipmentMethod"], searchTrackingNumber = ViewData["SearchTrackingNumber"], searchOrderId = ViewData["SearchOrderId"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Дата відправлення
+                        @if (ViewData["sortColumn"]?.ToString() == "shipment_date")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "shipment_method", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchShipmentDate = ViewData["SearchShipmentDate"], searchShipmentMethod = ViewData["SearchShipmentMethod"], searchTrackingNumber = ViewData["SearchTrackingNumber"], searchOrderId = ViewData["SearchOrderId"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Метод відправлення
+                        @if (ViewData["sortColumn"]?.ToString() == "shipment_method")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "tracking_number", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchShipmentDate = ViewData["SearchShipmentDate"], searchShipmentMethod = ViewData["SearchShipmentMethod"], searchTrackingNumber = ViewData["SearchTrackingNumber"], searchOrderId = ViewData["SearchOrderId"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Номер відстеження
+                        @if (ViewData["sortColumn"]?.ToString() == "tracking_number")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "id_order", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchShipmentDate = ViewData["SearchShipmentDate"], searchShipmentMethod = ViewData["SearchShipmentMethod"], searchTrackingNumber = ViewData["SearchTrackingNumber"], searchOrderId = ViewData["SearchOrderId"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Замовленння
+                        @if (ViewData["sortColumn"]?.ToString() == "id_order")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ShipmentDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.ShipmentMethod)</td>
+                <td>@Html.DisplayFor(modelItem => item.TrackingNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdOrderNavigation.IdOrder)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdShipment" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdShipment" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

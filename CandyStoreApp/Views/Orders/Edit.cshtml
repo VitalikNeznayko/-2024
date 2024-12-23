@@ -1,0 +1,54 @@
+﻿@model CandyStoreApp.Models.Order
+
+@{
+    ViewData["Title"] = "Редагувати замовлення";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-center text-warning my-4">Редагувати замовлення</h1>
+        <h4 class="text-muted text-center">Деталі замовлення</h4>
+        <hr />
+    </div>
+    <div class="col-md-6 shadow p-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdOrder" />
+
+            <div class="form-group">
+                <label asp-for="IdClient" class="control-label font-weight-bold">Клієнт</label>
+                <select asp-for="IdClient" class="form-control" asp-items="ViewBag.IdClient"></select>
+                <span asp-validation-for="IdClient" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OrderDate" class="control-label font-weight-bold">Дата замовлення</label>
+                <input asp-for="OrderDate" class="form-control" />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TotalCost" class="control-label font-weight-bold">Загальна вартість</label>
+                <input asp-for="TotalCost" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="TotalCost" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OrderStatus" class="control-label font-weight-bold">Статус замовлення</label>
+                <input asp-for="OrderStatus" class="form-control" />
+                <span asp-validation-for="OrderStatus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center my-4">
+                <input type="submit" value="Зберегти" class="btn btn-primary px-4 py-2" />
+                <a asp-action="Index" class="btn btn-secondary px-4 py-2 ml-2">Повернутися до списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

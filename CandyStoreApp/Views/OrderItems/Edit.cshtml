@@ -1,0 +1,54 @@
+﻿@model CandyStoreApp.Models.OrderItem
+
+@{
+    ViewData["Title"] = "Редагувати товар у замовленні";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-center text-warning my-4">Редагувати товар у замовленні</h1>
+        <h4 class="text-muted text-center">Інформація про товар у замовленні</h4>
+        <hr />
+    </div>
+    <div class="col-md-6 shadow p-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdOrderItem" />
+
+            <div class="form-group">
+                <label asp-for="IdOrder" class="control-label font-weight-bold">Замовлення</label>
+                <select asp-for="IdOrder" class="form-control" asp-items="ViewBag.IdOrder"></select>
+                <span asp-validation-for="IdOrder" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdProduct" class="control-label font-weight-bold">Продукт</label>
+                <select asp-for="IdProduct" class="form-control" asp-items="ViewBag.IdProduct"></select>
+                <span asp-validation-for="IdProduct" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label font-weight-bold">Кількість</label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TotalAmount" class="control-label font-weight-bold">Загальна сума</label>
+                <input asp-for="TotalAmount" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center my-4">
+                <input type="submit" value="Зберегти" class="btn btn-primary px-4 py-2" />
+                <a asp-action="Index" class="btn btn-secondary px-4 py-2 ml-2">Повернутися до списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

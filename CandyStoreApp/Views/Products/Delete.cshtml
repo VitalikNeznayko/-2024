@@ -1,0 +1,52 @@
+﻿@model CandyStoreApp.Models.Product
+
+@{
+    ViewData["Title"] = "Видалити продукт";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-danger fw-bold">Видалити продукт</h1>
+        <p class="text-muted fs-5">
+            Ви впевнені, що хочете видалити цей продукт? <br />
+            <span class="fst-italic">Цю дію не можна скасувати.</span>
+        </p>
+    </div>
+
+    <div class="card shadow-lg p-4 col-md-6">
+        <h4 class="text-muted text-center mb-4">Деталі продукту</h4>
+        <hr class="mb-4" />
+        <dl class="row">
+            <dt class="col-sm-6 fw-semibold">Назва продукту:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.ProductName)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Ціна:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.Price)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Кількість:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.Quantity)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Опис продукту:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.ProductDescription)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Категорія:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.IdCategoryNavigation.IdCategory)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Постачальник:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.IdSupplierNavigation.IdSupplier)</dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <form asp-action="Delete" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="IdProduct" />
+                <button type="submit" class="btn btn-danger px-4 py-2 me-2">
+                    <i class="bi bi-trash-fill"></i> Підтвердити видалення
+                </button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary px-4 py-2">
+                <i class="bi bi-arrow-left-circle"></i> Повернутися
+            </a>
+        </div>
+    </div>
+</div>

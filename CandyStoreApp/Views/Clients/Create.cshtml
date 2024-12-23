@@ -1,0 +1,72 @@
+﻿@model CandyStoreApp.Models.Client
+
+@{
+    ViewData["Title"] = "Створення нового клієнта";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Створення нового клієнта</h1>
+        <p class="text-muted">Будь ласка, заповніть форму для створення нового клієнта.</p>
+        <hr />
+    </div>
+
+    <div class="col-md-6 shadow-lg p-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label font-weight-bold">Ім'я</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label font-weight-bold">Прізвище</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label font-weight-bold">Електронна пошта</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label font-weight-bold">Телефон</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AddressClient" class="control-label font-weight-bold">Адреса</label>
+                <input asp-for="AddressClient" class="form-control" />
+                <span asp-validation-for="AddressClient" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="City" class="control-label font-weight-bold">Місто</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label font-weight-bold">Поштовий індекс</label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center my-4">
+                <button type="submit" class="btn btn-primary px-4 py-2">Створити</button>
+                <a asp-action="Index" class="btn btn-secondary px-4 py-2 ml-2">Повернутися до списку</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

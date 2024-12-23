@@ -1,0 +1,156 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Client>
+
+@{
+    ViewData["Title"] = "Клієнти";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Клієнти"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати клієнта</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <td>
+                <input type="text" class="form-control" name="searchFirstName" placeholder="Ім'я" value="@ViewData["SearchFirstName"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchLastName" placeholder="Призвище" value="@ViewData["SearchLastName"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchEmail" placeholder="Електронна пошта" value="@ViewData["SearchEmail"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchPhoneNumber" placeholder="Номер телефону" value="@ViewData["SearchPhoneNumber"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="SearchAddress" placeholder="Адреса" value="@ViewData["SearchAddress"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="SearchCity" placeholder="Місто" value="@ViewData["SearchCity"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="SearchIndex" placeholder="Поштовий код" value="@ViewData["SearchIndex"]" />
+            </td>
+            <td class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Шукати</button>
+                <a href="@Url.Action("Index", new { searchFirstName = (string)null, searchLastName = (string)null, searchEmail = (string)null, searchPhoneNumber = (string)null, SearchAddress = (string)null, SearchCity = (string)null, SearchIndex = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn mt-2 btn-secondary mx-1">Очистити</a>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "first_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Ім'я
+                        @if (ViewData["sortColumn"]?.ToString() == "first_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "last_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Прізвище
+                        @if (ViewData["sortColumn"]?.ToString() == "last_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "email", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Електронна пошта
+                        @if (ViewData["sortColumn"]?.ToString() == "email")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "phone_number", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Номер телефону
+                        @if (ViewData["sortColumn"]?.ToString() == "phone_number")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "address_client", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Адреса
+                        @if (ViewData["sortColumn"]?.ToString() == "address_client")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "city", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Місто
+                        @if (ViewData["sortColumn"]?.ToString() == "city")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "postal_code", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchFirstName = ViewData["SearchFirstName"], searchLastName = ViewData["SearchLastName"], searchEmail = ViewData["SearchEmail"], searchPhoneNumber = ViewData["SearchPhoneNumber"], SearchAddress = ViewData["SearchAddress"], SearchCity = ViewData["SearchCity"], SearchIndex = ViewData["SearchIndex"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Поштовий код
+                        @if (ViewData["sortColumn"]?.ToString() == "postal_code")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.AddressClient)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>@Html.DisplayFor(modelItem => item.PostalCode)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdClient" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdClient" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

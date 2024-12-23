@@ -1,0 +1,139 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Product>
+
+@{
+    ViewData["Title"] = "Продукти";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Продукти"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати новий продукт</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <td>
+                <input type="text" class="form-control" name="searchProductName" placeholder="Назва продукту" value="@ViewData["SearchProductName"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchPrice" placeholder="Ціна" value="@ViewData["SearchPrice"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchQuantity" placeholder="Кількість" value="@ViewData["SearchQuantity"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchDescription" placeholder="Опис" value="@ViewData["SearchDescription"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchCategory" placeholder="Категорія" value="@ViewData["SearchCategory"]" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="searchSupplier" placeholder="Постачальник" value="@ViewData["SearchSupplier"]" />
+            </td>
+            <td class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Шукати</button>
+                <a href="@Url.Action("Index", new { searchProductName = (string)null, searchPrice = (string)null, searchQuantity = (string)null, searchDescription = (string)null, searchCategory = (string)null, searchSupplier = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn mt-2 btn-secondary mx-1">Очистити</a>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "product_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Назва продукту
+                        @if (ViewData["sortColumn"]?.ToString() == "product_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "price", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Ціна
+                        @if (ViewData["sortColumn"]?.ToString() == "price")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "quantity", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Кількість
+                        @if (ViewData["sortColumn"]?.ToString() == "quantity")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "product_description", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Опис продукту
+                        @if (ViewData["sortColumn"]?.ToString() == "product_description")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "category_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Категорія
+                        @if (ViewData["sortColumn"]?.ToString() == "category_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "supplier_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchProductName = ViewData["SearchProductName"], searchPrice = ViewData["SearchPrice"], searchQuantity = ViewData["SearchQuantity"], searchDescription = ViewData["SearchDescription"], searchCategory = ViewData["SearchCategory"], searchSupplier = ViewData["SearchSupplier"] })">
+                    <div class="d-flex flex-row justify-content-between">
+                        Постачальник
+                        @if (ViewData["sortColumn"]?.ToString() == "supplier_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.ProductDescription)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdCategoryNavigation.CategoryName)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdSupplierNavigation.SupplierName)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdProduct" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdProduct" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Таблиці";
+}
+
+<div class="smallBox">
+    <h1 class="display-4 text-center mb-3">Таблиці</h1>
+
+    <h3 class="display-6 text-dark">Продукти</h3>
+    <div class="d-flex flex-wrap mt-3">
+        <a href="@Url.Action("Index", "Products")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Продукти</a>
+        <a href="@Url.Action("Index", "Categories")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Категорії продуктів</a>
+        <a href="@Url.Action("Index", "Suppliers")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Постачальники</a>
+    </div>
+    <h3 class="display-6 text-dark">Замовлення</h3>
+    <div class="d-flex flex-wrap mt-3">
+        <a href="@Url.Action("Index", "Orders")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Замовлення</a>
+        <a href="@Url.Action("Index", "OrderItems")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Товари замовлення</a>
+        <a href="@Url.Action("Index", "Shipments")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Відправлення</a>
+    </div>
+    <h3 class="display-6 text-dark">Клієнт</h3>
+    <div class="d-flex flex-wrap mt-3">
+        <a href="@Url.Action("Index", "Clients")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Клієнти</a>
+        <a href="@Url.Action("Index", "Reviews")" class="btn btn-info btn-large m-1 px-4 py-2 text-white">Відгуки</a>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CandyStoreApp.Models.Category>
+
+@{
+    ViewData["Title"] = "Категорії";
+}
+
+<h1 class="display-4 text-center mb-3">Таблиця "Категорії"</h1>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary">Додати категорію</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-info">
+        <tr>
+            <form method="get" asp-action="Index" class="mb-3">
+            <td>
+                <input type="text" class="form-control" name="searchCategoryName" placeholder="Назва категорії" />
+            </td>
+            <td class="text-center">
+                <button type="submit" class="btn btn-primary mx-1">Шукати</button>
+                <a href="@Url.Action("Index", new { searchCategoryName = (string)null, sortColumn = ViewData["sortColumn"], sortOrder = ViewData["sortOrder"] })" class="btn btn-secondary mx-1">Очистити</a>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index", new { sortColumn = "category_name", sortOrder = ViewData["sortOrder"].ToString() == "asc" ? "desc" : "asc", searchCategoryName = ViewData["SearchCategoryName"]})">
+                    <div class="d-flex flex-row justify-content-between">
+                        Назва категорії
+                        @if (ViewData["sortColumn"]?.ToString() == "category_name")
+                        {
+                            <i>
+                                @(ViewData["sortOrder"]?.ToString() == "asc" ? "↑" : "↓")
+                            </i>
+                        }
+                    </div>
+                </a>
+            </th>
+            <th class="text-center">Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.IdCategory" class="btn btn-sm btn-warning mx-1">Змінити</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdCategory" class="btn btn-sm btn-danger mx-1">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

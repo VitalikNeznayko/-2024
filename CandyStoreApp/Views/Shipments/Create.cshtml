@@ -1,0 +1,48 @@
+﻿@model CandyStoreApp.Models.Shipment
+
+@{
+    ViewData["Title"] = "Створення нового відправлення";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Створення нового відправлення</h1>
+        <p class="text-muted">Будь ласка, заповніть дані нижче, щоб додати новий запис про відправлення.</p>
+        <hr/>
+    </div>
+<div class="col-md-6 shadow justify-content-center">
+    <div>
+        <form asp-action="Create" class="p-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="form-group">
+                <label asp-for="IdOrder" class="control-label font-weight-bold">Замовлення</label>
+                <select asp-for="IdOrder" class="form-select" asp-items="ViewBag.IdOrder"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipmentDate" class="control-label font-weight-bold">Дата відправлення</label>
+                    <input asp-for="ShipmentDate" class="form-control" />
+                <span asp-validation-for="ShipmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipmentMethod" class="control-label font-weight-bold">Метод відправлення</label>
+                <input asp-for="ShipmentMethod" class="form-control" />
+                <span asp-validation-for="ShipmentMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackingNumber" class="control-label font-weight-bold">Номер відслідкування</label>
+                <input asp-for="TrackingNumber" class="form-control" />
+                <span asp-validation-for="TrackingNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center my-4">
+                <button type="submit" class="btn btn-primary px-4 py-2">Створити</button>
+                <a asp-action="Index" class="btn btn-secondary px-4 py-2 ml-2">Повернутися</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,46 @@
+﻿@model CandyStoreApp.Models.Shipment
+
+@{
+    ViewData["Title"] = "Видалити відправлення";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-danger fw-bold">Видалити відправлення</h1>
+        <p class="text-muted fs-5">
+            Ви впевнені, що хочете видалити це відправлення? <br />
+            <span class="fst-italic">Цю дію не можна скасувати.</span>
+        </p>
+    </div>
+
+    <div class="card shadow-lg p-4 col-md-6">
+        <h4 class="text-muted text-center mb-4">Деталі відправлення</h4>
+        <hr class="mb-4" />
+        <dl class="row">
+            <dt class="col-sm-6 fw-semibold">Дата відправлення:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.ShipmentDate)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Метод відправлення:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.ShipmentMethod)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Номер відслідкування:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.TrackingNumber)</dd>
+
+            <dt class="col-sm-6 fw-semibold">Замовлення:</dt>
+            <dd class="col-sm-6">@Html.DisplayFor(model => model.IdOrderNavigation.IdOrder)</dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <form asp-action="Delete" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="IdShipment" />
+                <button type="submit" class="btn btn-danger px-4 py-2 me-2">
+                    <i class="bi bi-trash-fill"></i> Підтвердити видалення
+                </button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary px-4 py-2">
+                <i class="bi bi-arrow-left-circle"></i> Повернутися
+            </a>
+        </div>
+    </div>
+</div>
