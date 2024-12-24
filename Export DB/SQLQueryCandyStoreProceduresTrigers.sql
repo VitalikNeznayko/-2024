@@ -166,23 +166,27 @@ VALUES (10, 1, 3);
 SELECT * FROM Order_Items WHERE id_order = 10;
 SELECT * FROM Orders WHERE id_order = 10;
 --task6
-CREATE TRIGGER trg_CheckProductStockBeforeOrder
+ALTER TRIGGER trg_CheckProductStockBeforeOrder
 ON Order_Items
 AFTER INSERT
 AS
 BEGIN
-    DECLARE @product_id INT, @order_quantity INT, @stock_quantity INT;
-
-    SELECT @product_id = id_product, @order_quantity = quantity FROM INSERTED;
-
-    SELECT @stock_quantity = quantity FROM Products WHERE id_product = @product_id;
-
-    IF @order_quantity > @stock_quantity
+    -- Перевірка на наявність перевищення замовленої кількості над доступним запасом
+     IF EXISTS (
+        SELECT 1
+        FROM INSERTED i
+        JOIN Products p ON i.id_product = p.id_product
+        WHERE p.quantity - i.quantity < 0
+    )
     BEGIN
-        PRINT 'Помилка!! Продукту немає на складі';
+        -- Виведення повідомлення про помилку
+        THROW 50001, 'Помилка! Недостатня кількість продукту на складі.', 1;
+
+        -- Відкат транзакції
         ROLLBACK TRANSACTION;
-    END;
+    END
 END;
+
 
 INSERT INTO Order_Items (id_order, id_product, quantity)
 VALUES (8, 12, 5)
